@@ -10,7 +10,7 @@ Fouille
 Temoignage
 Trafic
 Secret
-Message code
+Message_code
 Alibi
 Objectif
 Decouverte
@@ -21,33 +21,33 @@ Dossier
 Cachette
 Complice
 Recherche
-Indices croises
+Indices_croises
 Intrigue
 Tromperie
-Agent secret
+Agent_secret
 Intrus
 Ruse
 Trahison
-Operation clandestine
-Code secret
-Double jeu
-Rendez-vous mysterieux
+Operation_clandestine
+Code_secret
+Double_jeu
+Rendez-vous_mysterieux
 Evasion
-Plan secret
+Plan_secret
 Traque
-Identite secrete
+Identite_secrete
 Disparition
 Motif
 Resolution
 Enregistrement
-Ecoute secrete
+Ecoute_secrete
 Revelation
 Filature
 Conspiration
-Fausse piste
+Fausse_piste
 Decodage
 Deviner
-Echange clandestin
+Echange_clandestin
 Subterfuge
 Evasion
 Brouillage
@@ -57,20 +57,20 @@ Enveloppe
 Infiltration
 Planification
 Manipulation
-Cache secrete
+Cache_secrete
 Microfilm
-Plan de fuite
+Plan_de_fuite
 Complot
-Echange de renseignements
+Echange_de_renseignements
 Enigmatique
 Couverture
 Decouvrir
-Mener l'enquete
-Chercher des indices
+Mener_l'enquete
+Chercher_des_indices
 Eclaircir
 Preuve
 Surveillance
-Detourner l'attention
+Detourner_l'attention
 Verrouillage
 Manipulation
 Analyse
@@ -83,15 +83,14 @@ Decoder
 Enlevement
 Chiffre
 Confidentiel
-Imbroglio
 Filature
 Evasion
 Enjeu
-Mot de passe
+Mot_de_passe
 Traquer
-Percer a jour
+Percer_a_jour
 Reseau
-Plan d'action
+Plan_d'action
 Embuscade
 Denouement
 Preparation

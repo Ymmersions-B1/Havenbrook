@@ -20,6 +20,14 @@ import (
 const templateDir string = "../Templates/Havenbrook/"
 const exportDir string = "./export/"
 
+func main() {
+	rand.NewSource(time.Now().UnixNano())
+
+	// handleRequests()
+
+	generateNew("mazbaz")
+}
+
 func handleRequests() {
 	http.HandleFunc("/", requestExport)
 	log.Fatal(http.ListenAndServe(":10000", nil))
@@ -58,14 +66,6 @@ func requestExport(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	w.Write(jsonResponse)
-}
-
-func main() {
-	rand.NewSource(time.Now().UnixNano())
-
-	// handleRequests()
-
-	generateNew("mazbaz")
 }
 
 func generateNew(uuid string) ([]string, int, string) {
@@ -159,8 +159,16 @@ func readImageContent(path string) {
 			return r == '>' || r == '<'
 		})
 
+		tagsParts := strings.Split(tag, ":")
+		tag = tagsParts[0]
+		param := ""
+		if len(tagsParts) >= 2 {
+			param = tagsParts[1]
+			fmt.Println("HHHHHHH", param)
+		}
+
 		if replacementFunc, exists := tagToReplacementFunc[tag]; exists {
-			newTag := replacementFunc(tag)
+			newTag := replacementFunc(param)
 
 			utils.SetExifTag(newTag, path)
 
@@ -194,6 +202,7 @@ func replaceTag(path, tag, content string) string {
 	param := ""
 	if len(tagsParts) >= 2 {
 		param = tagsParts[1]
+		fmt.Println("HHHHHHH", param)
 	}
 
 	if replacementFunc, exists := tagToReplacementFunc[tag]; exists {
