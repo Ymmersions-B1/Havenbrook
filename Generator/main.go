@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"generator/utils"
@@ -8,7 +9,6 @@ import (
 	"math/rand"
 	"net/http"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"regexp"
 	"strings"
@@ -17,7 +17,7 @@ import (
 	"github.com/otiai10/copy"
 )
 
-const templateDir string = "./template/Havenbrook/"
+const templateDir string = "../Templates/Havenbrook/"
 const exportDir string = "./export/"
 
 func handleRequests() {
@@ -49,17 +49,14 @@ func requestExport(w http.ResponseWriter, r *http.Request) {
 		File:      file,
 	}
 
-	// Encoder la structure response en JSON
 	jsonResponse, err := json.Marshal(response)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	// Définir l'en-tête de la réponse comme JSON
 	w.Header().Set("Content-Type", "application/json")
 
-	// Écrire la réponse JSON dans la http.ResponseWriter
 	w.Write(jsonResponse)
 }
 
@@ -68,7 +65,7 @@ func main() {
 
 	// handleRequests()
 
-	generateNew("lkjqskldjqlkjdq_qsd_qsdqsdàà00")
+	generateNew("mazbaz")
 }
 
 func generateNew(uuid string) ([]string, int, string) {
@@ -84,6 +81,9 @@ func generateNew(uuid string) ([]string, int, string) {
 	err = copy.Copy(templateDir, newPath, copy.Options{
 		OnSymlink: func(src string) copy.SymlinkAction {
 			return copy.Shallow
+		},
+		Skip: func(info os.FileInfo, src, dest string) (bool, error) {
+			return strings.Contains(src, "#"), nil
 		},
 	})
 
@@ -118,11 +118,8 @@ func traverseDirectory(path string) {
 
 		if ext == ".txt" {
 			readTextFileContent(path)
-		} else if ext == ".jpg" {
-			exec.Command("exiftool", "-overwrite_original", `-Title="<IC>"`)
-			// for _, tag := range utils.GetExifTags(path) {
-			// 	replaceTag(path, tag, "")
-			// }
+		} else if ext == ".jpg" || ext == ".png" {
+			readImageContent(path)
 		}
 	}
 }
@@ -133,7 +130,6 @@ func readTextFileContent(path string) {
 		fmt.Printf("Erreur lors de la lecture du fichier %s : %v\n", path, err)
 		return
 	}
-
 	tagPattern := regexp.MustCompile(`<[^>]+>`)
 	tags := tagPattern.FindAllString(string(content), -1)
 
@@ -155,6 +151,27 @@ func readTextFileContent(path string) {
 	}
 }
 
+func readImageContent(path string) {
+	tags := utils.GetExifTags(path)
+
+	for _, tag := range tags {
+		tag = strings.TrimFunc(tag, func(r rune) bool {
+			return r == '>' || r == '<'
+		})
+
+		if replacementFunc, exists := tagToReplacementFunc[tag]; exists {
+			newTag := replacementFunc(tag)
+
+			utils.SetExifTag(newTag, path)
+
+			pathParts := strings.Split(path, "/")
+			fileName := pathParts[len(pathParts)-1]
+
+			fmt.Printf("Tag <%s> remplacé par %s dans le fichier %s\n", tag, newTag, fileName)
+		}
+	}
+}
+
 type ReplacementFunc func(param string) string
 
 var tagToReplacementFunc = map[string]ReplacementFunc{
@@ -165,9 +182,10 @@ var tagToReplacementFunc = map[string]ReplacementFunc{
 	"CB":  func(param string) string { return utils.StringToBinary(utils.GenerateRandWord(param)) },
 	"CCY": func(param string) string { return utils.LatinToCyrillic(utils.GenerateRandWord(param)) },
 	"CCYP": func(param string) string {
-		return utils.LatinToCyrillic("Portez ce vieux whisky au juge blond qui fume.") +
-			" = Portez ce vieux whisky au juge blond qui fume."
+		return utils.LatinToCyrillic("Portez ce vieux whisky au juge blond qui fume.") + " = Portez ce vieux whisky au juge blond qui fume."
 	},
+	"CB64": func(param string) string { return utils.GenerateBs4(utils.GenerateRandWord(param)) },
+	"CHEX": func(param string) string { return hex.EncodeToString([]byte(utils.GenerateRandWord(param))) },
 }
 
 func replaceTag(path, tag, content string) string {
@@ -179,12 +197,13 @@ func replaceTag(path, tag, content string) string {
 	}
 
 	if replacementFunc, exists := tagToReplacementFunc[tag]; exists {
-		newContent := strings.Replace(content, "<"+tag+">", replacementFunc(param), 1)
+		newTag := replacementFunc(param)
+		newContent := strings.Replace(content, "<"+tag+">", newTag, 1)
 
 		pathParts := strings.Split(path, "/")
 		fileName := pathParts[len(pathParts)-1]
 
-		fmt.Printf("Tag <%s> remplacé dans le fichier %s\n", tag, fileName)
+		fmt.Printf("Tag <%s> remplacé par %s dans le fichier %s\n", tag, newTag, fileName)
 		return newContent
 	}
 

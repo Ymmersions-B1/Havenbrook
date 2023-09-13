@@ -73,12 +73,11 @@ func GenerateRandWord(param string) string {
 	return param
 }
 
-func GenerateBs4(word string) {
-	bs64 := base64.StdEncoding.EncodeToString([]byte(word))
-
-	for i := 0; i < rand.Intn(21); i++ {
-		bs64 = base64.StdEncoding.EncodeToString([]byte(bs64))
+func GenerateBs4(word string) string {
+	for i := 0; i < Passwords.Shift+rand.Intn(5); i++ {
+		word = base64.StdEncoding.EncodeToString([]byte(word))
 	}
+	return word
 }
 
 func StringToCaesar(word string) string {
