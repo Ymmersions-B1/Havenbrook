@@ -64,9 +64,11 @@ func requestExport(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	rand.Seed(time.Now().UnixNano())
+	rand.NewSource(time.Now().UnixNano())
 
-	handleRequests()
+	// handleRequests()
+
+	generateNew("lkjqskldjqlkjdq_qsd_qsdqsdàà00")
 }
 
 func generateNew(uuid string) ([]string, int, string) {

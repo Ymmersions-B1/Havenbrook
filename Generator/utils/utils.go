@@ -155,5 +155,4 @@ func GetExifTags(imagePath string) []string {
 
 	tagPattern := regexp.MustCompile(`<[^>]+>`)
 	return tagPattern.FindAllString(string(output), -1)
-	return []string{}
 }

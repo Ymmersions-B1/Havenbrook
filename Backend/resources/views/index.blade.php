@@ -22,16 +22,25 @@
     @forelse ($classrooms as $room)
         @php
             $progress = $room->calculateOverallFoundPercentage();
+
+            $progressLevel = "danger";
+
+            if ( $progress >= 40 && $progress <= 60) {
+                $progressLevel = "warning";
+            } else if ($progress > 60) {
+                $progressLevel = "success";
+            }
+
         @endphp
         <div class="col-md-6">
             <div class="card mb-3">
                 <div class="card-body">
                     <h1>{{ $room->name }}</h1>
-                    <li class="list-group-item">Rooms : {{ $room->rooms->count() }} | Mates : {{ $room->rooms->pluck('mates')->flatten()->count() }}</li>
+                    <li class="list-group-item mb-3">Rooms : {{ $room->rooms->count() }} | Mates : {{ $room->rooms->pluck('mates')->flatten()->count() }}</li>
                     <li class="list-group-item">
                         <span>Progress :</span>
-                        <div class="progress" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                            <div class="progress-bar progress-bar-animated progress-bar-striped bg-success" style="min-width: fit-content; width: {{ $progress }}%"><div class="px-2">{{ $progress }}%</div>
+                        <div class="progress" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="height: 40px">
+                            <div class="progress-bar progress-bar-animated progress-bar-striped bg-{{ $progressLevel }}" style="min-width: fit-content; width: {{ $progress }}%"><div class="px-2">{{ $progress }}%</div>
                         </div>
                     </li>
                     <div class="d-grid mt-3">
