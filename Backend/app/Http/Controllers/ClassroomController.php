@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Classroom;
+use App\Events\RefreshEvent;
 use Illuminate\Http\Request;
 
 class ClassroomController extends Controller
@@ -20,8 +21,10 @@ class ClassroomController extends Controller
 
         return view("index", [
             "classrooms" => $classrooms,
+            "totalProgress" => $finalPercent,
             "message" => $finalPercent >= env("WIN_MIN") ? "You won 🎉" : "You lost 🥲",
-            "end" => Carbon::parse(env("END_DATE"))->timestamp
+            "end" => Carbon::parse(env("END_DATE"))->timestamp,
+            "isEnded" => Carbon::parse(env("END_DATE")) <= Carbon::now()
         ]);
     }
 
@@ -67,5 +70,10 @@ class ClassroomController extends Controller
         $classroom->delete();
 
         return response()->json();
+    }
+
+    public function refresh() {
+        event(new RefreshEvent("refresh"));
+        dd(Carbon::now());
     }
 }

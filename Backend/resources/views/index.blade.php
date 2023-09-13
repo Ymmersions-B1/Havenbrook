@@ -50,31 +50,81 @@
         </div>
     @endforelse
 </div>
+
+<div class="mt-5">
+    <h1>Son On/Off</h1>
+    <button id="soundToggle" class="btn btn-primary">Activer le son</button>
+</div>
 @endsection
 
 @push('scripts')
 
 @endpush
 
-@include("components.refresh")
 
 @push('footer-scripts')
     <script src="https://unpkg.com/animejs@3.0.1/lib/anime.min.js"></script>
     <script src="https://pbutcher.uk/flipdown/js/flipdown/flipdown.js"></script>
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+    
+    <script>
+        let sparkler = new Audio('{{ asset("sounds/sparkler.mp3") }}');
+        let explosion = new Audio('{{ asset("sounds/explosion.mp3") }}');
+
+        let soundEnabled = true;
+
+        // Récupérez une référence au bouton
+        const soundToggleButton = document.getElementById("soundToggle");
+
+        // Ajoutez un gestionnaire d'événements au bouton pour activer/désactiver le son
+        soundToggleButton.addEventListener("click", function () {
+            soundEnabled = !soundEnabled; // Inverser l'état du son
+
+            if (soundEnabled) {
+                soundToggleButton.textContent = "Activer le son";
+            } else {
+                soundToggleButton.textContent = "Désactiver le son";
+            }
+        });
+
+        function playSparkler() {
+            if (soundEnabled) {
+                console.log("S1 played");
+                sparkler.play();
+            }
+        }
+
+        function playBomb() {
+            if (soundEnabled) {
+                sparkler.pause();
+                console.log("S2 played");
+                explosion.play();
+            }
+        }
+    </script>
+
     <script src="{{ asset("js/index.js") }}"></script>
 
     <script>
-        let totalProgress = "";
-        console.log("totalprogress", totalProgress);
-        if (totalProgress >= 95) {
-            document.getElementById("rupee").innerHTML = "You won 🎉"
-        } else {
-            let flipdown = new FlipDown({{$end}})
+            let flipdown = new FlipDown({{ $end }})
             .start()
-            .ifEnded(() => startBomb());
-        }
-        
-    </script>
+            .ifEnded(() => {
+                if ({{ $totalProgress }} <= {{ env("WIN_MIN") }} ) {
+                    startBomb()
+                } 
+            });
+
+            let pusher = new Pusher('f121ba7d19d3efa9090d', {
+                cluster: 'eu'
+            });
+
+            let channel = pusher.subscribe('my-channel');
+            channel.bind('my-event', function(data) {
+                if (data.message == "refresh" && {{ !$isEnded }}) {
+                    window.location.reload();
+                }
+            });
+    </script> 
 @endpush
 
 @push('styles')

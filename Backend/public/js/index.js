@@ -1,4 +1,5 @@
 
+
 function startBomb() {
     /* globals anime */
     const totalDuration = 10000;
@@ -11,6 +12,7 @@ function startBomb() {
             { value: "scale(1)", duration: 500, easing: "easeInOutSine" }, // État initial
             { value: "scale(0)", duration: 500, easing: "easeInOutSine" }, // État final
         ],
+        begin: () => {playSparkler()},
     });
 
     anime({
@@ -70,6 +72,7 @@ function startBomb() {
             duration: totalDuration * 0.06,
             delay: totalDuration * 0.01,
             easing: "easeInOutSine",
+            begin: () => {playBomb()}
         },
         `-=${totalDuration * 0.05}`
     );

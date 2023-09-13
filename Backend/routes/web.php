@@ -21,7 +21,7 @@ use App\Http\Controllers\RoomController;
 */
 Route::get("/", [ClassroomController::class, "index"])->name("home");
 
-Route::get("/refresh", [RefreshController::class, "index"])->name("refresh");
+Route::get("/refresh", [ClassroomController::class, "refresh"])->name("refresh");
 
 Route::resource('/classroom', ClassroomController::class, [
     "except" => ["index", "create", "edit"]
