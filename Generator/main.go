@@ -17,8 +17,9 @@ import (
 	"github.com/otiai10/copy"
 )
 
-const templateDir string = "../Templates/Havenbrook/"
-const exportDir string = "./export/"
+const templateDir string = "../Templates/Havenbrook"
+const tempExportDir string = "./export/"
+const finalExportDir string = "./exportFinal"
 
 func main() {
 	rand.NewSource(time.Now().UnixNano())
@@ -76,7 +77,8 @@ func generateNew(uuid string) ([]string, int, string) {
 
 	utils.Passwords.PassList = []string{}
 
-	newPath := exportDir + "Havenbrook-" + uuid
+	newName := "Havenbrook-" + uuid
+	newPath := tempExportDir + newName
 
 	err = copy.Copy(templateDir, newPath, copy.Options{
 		OnSymlink: func(src string) copy.SymlinkAction {
@@ -93,7 +95,16 @@ func generateNew(uuid string) ([]string, int, string) {
 
 	traverseDirectory(newPath)
 
-	return utils.Passwords.PassList, utils.Passwords.Shift, newPath
+	fmt.Println(newPath)
+
+	err = utils.CompressFiles(tempExportDir, finalExportDir, newName)
+	if err != nil {
+		fmt.Println("Erreur lors de la compression des fichiers :", err)
+	} else {
+		fmt.Println("Le dossier a été compressé avec succès dans", finalExportDir+"/"+newName+".zip")
+	}
+
+	return utils.Passwords.PassList, utils.Passwords.Shift, newName + ".zip"
 }
 
 func traverseDirectory(path string) {

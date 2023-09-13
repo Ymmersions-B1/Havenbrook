@@ -1,3 +1,5 @@
+github.com/augani/zipper v0.0.0-20200924092915-08eca689c3be h1:neUs5bTfT3cRCyKu7Rt29YOw0jPLCsjQsUjl0+kZ8cM=
+github.com/augani/zipper v0.0.0-20200924092915-08eca689c3be/go.mod h1:J5vew/ER7n+MSkzGcKy5pcAOKiE3QWavFOoVlnLt1WA=
 github.com/google/uuid v1.3.1 h1:KjJaJ9iWZ3jOFZIf1Lqf4laDRCasjl0BCmnEGxkdLb4=
 github.com/google/uuid v1.3.1/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
 github.com/otiai10/copy v1.12.0 h1:cLMgSQnXBs1eehF0Wy/FAGsgDTDmAqFR7rQylBb1nDY=

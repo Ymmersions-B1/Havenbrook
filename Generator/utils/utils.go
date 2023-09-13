@@ -1,11 +1,14 @@
 package utils
 
 import (
+	"archive/zip"
 	"encoding/base64"
 	"fmt"
+	"io"
 	"math/rand"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"regexp"
 	"strconv"
 	"strings"
@@ -154,4 +157,65 @@ func GetExifTags(imagePath string) []string {
 
 	tagPattern := regexp.MustCompile(`<[^>]+>`)
 	return tagPattern.FindAllString(string(output), -1)
+}
+
+func CompressFiles(sourcePath, destinationPath, zipFileName string) error {
+	// Créez un fichier zip en écriture.
+	zipFilePath := filepath.Join(destinationPath, zipFileName+".zip")
+	zipFile, err := os.Create(zipFilePath)
+	if err != nil {
+		return err
+	}
+	defer zipFile.Close()
+
+	// Créez un écrivain zip à partir du fichier zip.
+	archive := zip.NewWriter(zipFile)
+	defer archive.Close()
+
+	// Parcourez le dossier et ajoutez chaque fichier et dossier au fichier zip.
+	return filepath.Walk(sourcePath, func(filePath string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+
+		// Créez un en-tête pour le fichier dans le fichier zip.
+		zipFileHeader, err := zip.FileInfoHeader(info)
+		if err != nil {
+			return err
+		}
+
+		// Utilisez le nom relatif du fichier par rapport au dossier source pour créer le chemin dans le zip.
+		relativePath, err := filepath.Rel(sourcePath, filePath)
+		if err != nil {
+			return err
+		}
+
+		zipFileHeader.Name = strings.ReplaceAll(relativePath, string(filepath.Separator), "/")
+
+		// Ajoutez l'en-tête du fichier au fichier zip.
+		fileWriter, err := archive.CreateHeader(zipFileHeader)
+		if err != nil {
+			return err
+		}
+
+		// Si le fichier est un répertoire, ne faites rien de plus.
+		if info.IsDir() {
+			return nil
+		}
+
+		// Ouvrez le fichier source pour la copie dans le fichier zip.
+		fileSource, err := os.Open(filePath)
+		if err != nil {
+			return err
+		}
+		defer fileSource.Close()
+
+		// Copiez le contenu du fichier source dans le fichier zip.
+		_, err = io.Copy(fileWriter, fileSource)
+		if err != nil {
+			return err
+		}
+
+		return nil
+	})
 }
