@@ -19,19 +19,19 @@ import (
 
 const templateDir string = "../Templates/Havenbrook"
 const tempExportDir string = "./export/"
-const finalExportDir string = "./exportFinal"
+const finalExportDir string = "../Backend/storage/app/public/export"
 
 func main() {
 	rand.NewSource(time.Now().UnixNano())
 
 	handleRequests()
-
-	// generateNew("mazbaz")
 }
 
 func handleRequests() {
 	http.HandleFunc("/", requestExport)
 	log.Fatal(http.ListenAndServe(":10000", nil))
+
+	fmt.Println("Server started localhost:1000")
 }
 
 func requestExport(w http.ResponseWriter, r *http.Request) {
