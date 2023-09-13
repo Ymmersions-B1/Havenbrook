@@ -1,0 +1,92 @@
+-------------------- PARC CENTRAL --------------------- 
+TRAME =>
+1 - Cimetierre
+    a - Saule pleureur (Carnet_de_notes.txt)
+        SIGNATURE = Arturus en code cesar 
+        CODE = code cesar utilisé pour la signature 
+        [CODE]
+
+    b - Tombe (Os.txt) => Indice (suite énigme) 
+        " Cette énigme subtile pourrait bien pointer vers une direction. 
+        Il semble que les journaux historiques d'Havenbrook, où les événements passés sont enregistrés, pourraient contenir des réponses. 
+        Peut-être est-ce là que réside la clé pour désamorcer la bombe, mais il faudra plonger dans les histoires passées pour le découvrir."
+
+    c - Tombe2 (Photo.jpg & lettre.txt) 
+        Aide : dans la lettre mot "déchiré" dans le texte => Poubelle => papier déchiré 
+        MAZ Imageeeeeeeeeeeeeeeee => [CODE normal]
+
+
+2 - Fontaine => Plaque_commémorative.txt 
+    Indice => Soustraction date  ex : 22-04-1890
+    [CODE]
+
+3 - Kiosque à journaux
+    a - Actualites (journal_du_jour.txt) => indice => "vos notes" => notes de frais /// "secret du passé", "couche de temps" => poubelle
+    b - Historique (journal.txt) => post-it.txt contient le prochain code
+    c - Privé (post-it.txt) => code cyrillique [code]
+
+4 - Poubelle
+    a - Morceau_de_papiers.txt => Rien, enigme redirection fontaine
+    b - Note_de_frais.txt => traduction du code cyrillique [code]
+    c - papier_dechire.txt => Indice = métadonnées
+
+--------------------- VIEUX PHARE --------------------- 
+TRAME => 1a, 1b, 2a, 3a, 3b, 2b
+1 - Salle des machines 
+    a - Armoire 1 (Enveloppe.txt) => Indice (suite énigme)
+
+" [...] Soyez perspicace et astucieux,
+Le destin est entre vos mains, audacieux,
+Dans la loge du vieux phare,
+Se cache le secret à dévoiler. "
+
+=> suite de l'histoire : loge du gardien
+
+
+    b - Armoire 2 (Post-it.txt) => Indice (fin énigme)
+
+" [...] Zéros et uns, mystérieux langage,
+À déchiffrer pour le voyage,
+Vers la porte qui s'ouvrira,
+Quand le code apparaîtra. "
+
+=> code binaire à déchiffrer (contient un mot pour désamorcer la bombe [code HEXA])
+
+-- 
+2 - Loge du gardien
+    a - Bureau 
+        i - Tiroir du bas (Dossier.txt) => Lettre en binaire éparpillées dans le texte => Bout à bout = mot pour désamorcer la bombe [code]
+        ii - Tiroir du haut => RIEN
+        iii - Tiroir du milieu (Papier_chifonne.txt) => Énigme qui renvoie au Musée Maritime => suite de l'histoire
+
+    b - Placard a vêtements
+         i - Boite à souvenirs
+            ° Ecrin => Lettre => go voir l'image
+            °° Photo => Indice => Info métadonnées images => [code CB64] PHOTOOOOOOOOOOOO MAZ
+         ii - Chemise.txt => Nom du gardien pas important au final osef
+
+--
+3 - Musée Maritime
+
+    a - Exposition 
+        i - Statue 1 (Inscription.txt) => Indice renvoie à la salle des archives = suite de l'histoire
+        ii - Statue 2 (Inscription.txt) => Rien
+    
+    b - Salle des archives
+        i - Trappe => exo bashcrawl => (à la fin code)
+
+        ii - Mémoire du territoire 
+            ° Carnet de bord.txt => Indice, aller voir dans le placard à vêtements, 
+            ° Persistance.png => RIEN
+
+
+--
+<CC> = code cesar 
+<CCS> = signature
+<D> = date dd-mm-yyyy
+<CB64> = code base 64
+<CHEX> = code hexadécimal
+<CB> = code binaire
+<C> = code 
+<CCY> = code cyrillique
+<CCYP> = code cyrillique phrase

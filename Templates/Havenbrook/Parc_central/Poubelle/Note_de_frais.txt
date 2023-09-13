@@ -1,0 +1,12 @@
+Date : 07/12
+Magasin : Épicerie du coin
+Heure : 16h45
+Articles achetés :
+
+1 x Lait
+1 x Pain
+1 x Confiture
+1 x Café
+1 x <CCY>
+
+Total : 12.50€
