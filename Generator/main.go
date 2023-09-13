@@ -23,9 +23,9 @@ const exportDir string = "./export/"
 func main() {
 	rand.NewSource(time.Now().UnixNano())
 
-	// handleRequests()
+	handleRequests()
 
-	generateNew("mazbaz")
+	// generateNew("mazbaz")
 }
 
 func handleRequests() {
