@@ -29,9 +29,9 @@ func main() {
 
 func handleRequests() {
 	http.HandleFunc("/", requestExport)
+	fmt.Println("Server started localhost:1000")
 	log.Fatal(http.ListenAndServe(":10000", nil))
 
-	fmt.Println("Server started localhost:1000")
 }
 
 func requestExport(w http.ResponseWriter, r *http.Request) {
@@ -95,9 +95,7 @@ func generateNew(uuid string) ([]string, int, string) {
 
 	traverseDirectory(newPath)
 
-	fmt.Println(newPath)
-
-	err = utils.CompressFiles(tempExportDir, finalExportDir, newName)
+	err = utils.CompressFiles(newPath, finalExportDir, newName)
 	if err != nil {
 		fmt.Println("Erreur lors de la compression des fichiers :", err)
 	} else {
