@@ -1,0 +1,31 @@
+Sur cette photo sépia, la famille du gardien est figée dans le temps. 
+Devant le phare, le gardien, homme bienveillant au regard sage, arbore fièrement son uniforme marin. 
+À ses côtés, sa femme, douce et souriante, revêt une élégante robe d'époque. Chaque enfant tient leur mains. 
+La famille est unie. Les deux garçons sont présents : l'aîné, aux yeux brillants et le cadet, espiègle et curieux, prêt à explorer. 
+Le phare se dresse fièrement, illuminant le ciel de son éclat.
+
+--
+Todo: 
+code caché dans les méta = exemple : MARIN 
+Code cyrillique dans les metadonnées de l'image 
+
+
+
+sudo apt-get install libimage-exiftool-perl
+
+<?php
+// Chemin vers l'image
+$imagePath = './Photo.jpg';
+
+// Code à cacher dans les métadonnées
+$code = '<CODE>';
+
+// Utiliser ExifTool pour ajouter les métadonnées personnalisées
+$command = "exiftool -overwrite_original -Title='$code' $imagePath";
+exec($command);
+
+// Vérifier si les métadonnées ont été ajoutées avec succès
+$output = shell_exec("exiftool $imagePath");
+echo $output;
+?>
+
