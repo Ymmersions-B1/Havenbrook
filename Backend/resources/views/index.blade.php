@@ -80,19 +80,19 @@
         let sparkler = new Audio('{{ asset("sounds/sparkler.mp3") }}');
         let explosion = new Audio('{{ asset("sounds/explosion.mp3") }}');
 
-        let soundEnabled = true;
+        let soundEnabled = false;
 
         // Récupérez une référence au bouton
         const soundToggleButton = document.getElementById("soundToggle");
 
         // Ajoutez un gestionnaire d'événements au bouton pour activer/désactiver le son
         soundToggleButton.addEventListener("click", function () {
-            soundEnabled = !soundEnabled; // Inverser l'état du son
+            soundEnabled = !soundEnabled;
 
             if (soundEnabled) {
-                soundToggleButton.textContent = "Activer le son";
+                soundToggleButton.textContent = "Le son est activé";
             } else {
-                soundToggleButton.textContent = "Désactiver le son";
+                soundToggleButton.textContent = "Le son est désactivé";
             }
         });
 
