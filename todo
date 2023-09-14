@@ -1,0 +1,9 @@
+laravel :
+
+link storage 
+bdd
+storage > public > export
+
+golang:
+
+go build
