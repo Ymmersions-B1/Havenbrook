@@ -25,6 +25,8 @@ func main() {
 	rand.NewSource(time.Now().UnixNano())
 
 	handleRequests()
+
+	// generateNew("test")
 }
 
 func handleRequests() {
@@ -70,6 +72,7 @@ func requestExport(w http.ResponseWriter, r *http.Request) {
 }
 
 func generateNew(uuid string) ([]string, int, string) {
+	fmt.Print("-------------- Starting export for ", uuid, "----------------- \n")
 	err := utils.LoadWords()
 	if err != nil {
 		fmt.Errorf(err.Error())
@@ -101,6 +104,9 @@ func generateNew(uuid string) ([]string, int, string) {
 	} else {
 		fmt.Println("Le dossier a été compressé avec succès dans", finalExportDir+"/"+newName+".zip")
 	}
+	fmt.Println("---------- PassList ------------------")
+	fmt.Println(utils.Passwords.PassList)
+	fmt.Print("-------------- End of export for ", uuid, "----------------- \n")
 
 	return utils.Passwords.PassList, utils.Passwords.Shift, newName + ".zip"
 }
@@ -173,7 +179,6 @@ func readImageContent(path string) {
 		param := ""
 		if len(tagsParts) >= 2 {
 			param = tagsParts[1]
-			fmt.Println("HHHHHHH", param)
 		}
 
 		if replacementFunc, exists := tagToReplacementFunc[tag]; exists {
@@ -206,22 +211,26 @@ var tagToReplacementFunc = map[string]ReplacementFunc{
 }
 
 func replaceTag(path, tag, content string) string {
-	tagsParts := strings.Split(tag, ":")
-	tag = tagsParts[0]
-	param := ""
-	if len(tagsParts) >= 2 {
-		param = tagsParts[1]
-		fmt.Println("HHHHHHH", param)
+	tagParts := strings.Split(tag, ":")
+	if len(tagParts) < 1 {
+		return content
 	}
 
-	if replacementFunc, exists := tagToReplacementFunc[tag]; exists {
+	tagName := tagParts[0]
+	param := ""
+	if len(tagParts) >= 2 {
+		param = tagParts[1]
+	}
+
+	if replacementFunc, exists := tagToReplacementFunc[tagName]; exists {
 		newTag := replacementFunc(param)
-		newContent := strings.Replace(content, "<"+tag+">", newTag, 1)
+		oldTag := "<" + tag + ">"
+		newContent := strings.Replace(content, oldTag, newTag, 1)
 
 		pathParts := strings.Split(path, "/")
 		fileName := pathParts[len(pathParts)-1]
 
-		fmt.Printf("Tag <%s> remplacé par %s dans le fichier %s\n", tag, newTag, fileName)
+		fmt.Printf("Tag <%s> remplacé par %s dans le fichier %s\n", tagName, newTag, fileName)
 		return newContent
 	}
 
