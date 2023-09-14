@@ -47,7 +47,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-grid mb-3">
-                    <a href="{{ asset("export/" . $room->file) }}" class="btn btn-primary" download><i class="bi bi-download"></i> Download file</a>
+                    <a href="{{ asset("storage/export/" . $room->file) }}" class="btn btn-primary" download><i class="bi bi-download"></i> Download file</a>
                 </div>
                 <hr>
                 <h4>Codes :</h4>
