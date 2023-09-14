@@ -1,11 +1,11 @@
 Situé sur la fontaine du Parc central d'Havenbrook, une inscription gravée qui suscite la curiosité se lit comme suit :
 
-"Ici repose la source de vie,
+" Ici repose la source de vie,
 L'eau pure qui guérit et nourrit,
 Elle cache un secret ancien,
 Un code qui se soustrait et libère le destin.
 
-Inauguré par Monsieur le Maire Chambard le <D>"
+Inauguré par Monsieur le Maire Chambard le <D> "
 
 Cette inscription mystérieuse évoque le rôle symbolique de la fontaine en tant que source de vie pour la ville d'Havenbrook. 
 Le Dr. Arturus, attiré par les éléments mystiques et les symboles cachés, a choisi cet emplacement pour puiser la source d'un indice crucial vers le code de désamorçage de la bombe.
@@ -13,4 +13,4 @@ Le Dr. Arturus, attiré par les éléments mystiques et les symboles cachés, a 
 La fontaine, représentant la vitalité et la pureté, renferme un secret ancien qui révèle une partie du code tant recherché. 
 Observez attentivement la fontaine, étudiez ses détails et cherchez des indices subtils qui pourraient révéler la combinaison nécessaire pour désamorcer la bombe.
 
-Le Dr. Arcturus, maître des énigmes, a utilisé cette inscription pour vous défier et mettre à l'épreuve votre perspicacité. 
+Le Dr. Arturus, maître des énigmes, a utilisé cette inscription pour vous défier et mettre à l'épreuve votre perspicacité. 
