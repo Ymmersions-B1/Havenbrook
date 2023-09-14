@@ -4,9 +4,9 @@
 
 ## Histoire :
 
-Au cœur d'unvillage paisible nommée Havenbrook, une menace mortelle s'est abattue. Un génie du mal connu sous le nom de Dr. Arcturus a créé une bombe sophistiquée, dissimulée quelque part dans le village. Cette bombe est un engin redoutable, doté d'un compte à rebours implacable.
+Au cœur d'unvillage paisible nommée Havenbrook, une menace mortelle s'est abattue. Un génie du mal connu sous le nom de Dr. Arturus a créé une bombe sophistiquée, dissimulée quelque part dans le village. Cette bombe est un engin redoutable, doté d'un compte à rebours implacable.
 
-Le Dr. Arcturus, adepte des énigmes complexes, a conçu une série de défis pour garder les codes de désamorçage. Le sort de le village repose entre vos mains, membres de l'équipe de désamorçage. Vous vous retrouvez dans une situation critique, prêts à affronter tous les obstacles pour sauver la population innocente.
+Le Dr. Arturus, adepte des énigmes complexes, a conçu une série de défis pour garder les codes de désamorçage. Le sort de le village repose entre vos mains, membres de l'équipe de désamorçage. Vous vous retrouvez dans une situation critique, prêts à affronter tous les obstacles pour sauver la population innocente.
 
 ## Contexte :
 
