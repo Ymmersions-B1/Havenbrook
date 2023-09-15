@@ -26,7 +26,7 @@ class ClassroomController extends Controller
             "message" => $finalPercent >= env("WIN_MIN") ? "Oh snap ❌" : "Bim ✅",
             "end" => Carbon::parse(env("END_DATE"))->timestamp,
             "isEnded" => Carbon::parse(env("END_DATE")) <= Carbon::now(),
-            "top" =>  Room::where("completed", true)->latest()->take(10)->get()->load("mates"),
+            "top" =>  Room::where("completed", true)->latest("updated_at")->take(10)->get()->load("mates"),
         ]);
     }
 
