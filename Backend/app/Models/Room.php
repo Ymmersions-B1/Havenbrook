@@ -35,7 +35,9 @@ class Room extends Model
             $codeModel->save();
 
             event(new RefreshEvent("refresh"));
+            return true;
         }
+        return false;
     }
 
     public function calculateFoundPercentage() {
@@ -48,6 +50,11 @@ class Room extends Model
 
         $percentage = ($foundCodes / $totalCodes) * 100;
 
+        if ($percentage >= 99) {
+            $this->completed = true;
+            $this->save();
+        }
+        
         return round($percentage, 2);
     }
 }

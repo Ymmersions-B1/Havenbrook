@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Classroom;
 use App\Events\RefreshEvent;
+use App\Models\Room;
 use Illuminate\Http\Request;
 
 class ClassroomController extends Controller
@@ -24,7 +25,8 @@ class ClassroomController extends Controller
             "totalProgress" => $finalPercent,
             "message" => $finalPercent >= env("WIN_MIN") ? "You won 🎉" : "You lost 🥲",
             "end" => Carbon::parse(env("END_DATE"))->timestamp,
-            "isEnded" => Carbon::parse(env("END_DATE")) <= Carbon::now()
+            "isEnded" => Carbon::parse(env("END_DATE")) <= Carbon::now(),
+            "top" =>  Room::where("completed", true)->latest()->take(10)->get()->load("mates"),
         ]);
     }
 

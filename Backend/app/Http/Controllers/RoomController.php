@@ -113,8 +113,8 @@ class RoomController extends Controller
     }
 
     public function check(Request $request, Room $room) {
-        $room->check($request->code);
-
-        return redirect()->route("room.show", $room);
+        $messages = $room->check($request->code) ? ['success', 'Good code ! 🧠'] : ['danger', 'Wrong code ! 🤧'];
+    
+        return redirect()->route('room.show', $room)->with($messages[0], $messages[1]);
     }
 }

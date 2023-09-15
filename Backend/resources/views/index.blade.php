@@ -8,16 +8,45 @@
     <h1>The HavenBrook</h1>
 </div>
 
-<div class="card w-full mb-3">
-    <div class="card-body">
-        <div class="bomb-container">
-
-            @include('components.bomb', ["message" => $message])
-
-            <div id="flipdown" class="flipdown mb-3"></div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h3>Leaderboard 🏆</h3>
+                <ul class="list-group">
+                    @php
+                        $i = 0   
+                    @endphp
+                    @foreach ($top as $room)
+                        @php
+                            $i++
+                        @endphp
+                        <li class="list-group-item">
+                            <h5>{{ $i }} | {{ $room->title }}</h5>
+                            @foreach ($room->mates as $mate)
+                                <small>{{ $mate->name }}</small>
+                            @endforeach
+                        </li>
+                    @endforeach
+                  </ul>
+                
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card w-full mb-3">
+            <div class="card-body">
+                <div class="bomb-container">
+        
+                    @include('components.bomb', ["message" => $message])
+        
+                    <div id="flipdown" class="flipdown mb-3"></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
 <div class="row">
     @forelse ($classrooms as $room)
         @php

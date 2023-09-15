@@ -69,6 +69,12 @@
                             <input type="text" class="form-control" name="code" required min="2">
                             <button  class="btn btn-outline-success" type="submit">Test code</button>
                         </div>
+                        @include('components.alerts')
+                        <hr>
+                        <div class="d-flex justify-content-center" style="gap: 1rem">
+                            <span class="badge text-bg-primary">Strings (not case sensitive)</span>
+                            <span class="badge text-bg-primary">Integer (positive and negative)</span>
+                        </div>
                     </form>
                 @else
                     <div class="d-flex justify-content-center">
