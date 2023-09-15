@@ -10,7 +10,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <div class="card">
+        <div class="card mb-3">
             <div class="card-body">
                 <h3>Leaderboard 🏆</h3>
                 <ul class="list-group">
