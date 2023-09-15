@@ -23,7 +23,7 @@ class ClassroomController extends Controller
         return view("index", [
             "classrooms" => $classrooms,
             "totalProgress" => $finalPercent,
-            "message" => $finalPercent >= env("WIN_MIN") ? "You won 🎉" : "You lost 🥲",
+            "message" => $finalPercent >= env("WIN_MIN") ? "Oh snap ❌" : "Bim ✅",
             "end" => Carbon::parse(env("END_DATE"))->timestamp,
             "isEnded" => Carbon::parse(env("END_DATE")) <= Carbon::now(),
             "top" =>  Room::where("completed", true)->latest()->take(10)->get()->load("mates"),
