@@ -33,13 +33,15 @@
                 @empty
                     <h6>Any mates yet !</h6>
                 @endforelse
-                <hr>
-                <form action="{{ route("mate.store") }}" method="POST" class="d-flex gap-3 mb-3">
-                    @csrf
-                    <input type="text" name="room" value="{{ $room->id }}" hidden>
-                    <input type="text" class="form-control" placeholder="Username" name="name" value="{{ old("username") }}" required min="2">
-                    <button type="submit" class="btn btn-success">+</button>
-                </form>
+                @if ($room->mates->count() <= env("MAX_MATES")-1)
+                    <hr>
+                    <form action="{{ route("mate.store") }}" method="POST" class="d-flex gap-3 mb-3">
+                        @csrf
+                        <input type="text" name="room" value="{{ $room->id }}" hidden>
+                        <input type="text" class="form-control" placeholder="Username" name="name" value="{{ old("username") }}" required min="2">
+                        <button type="submit" class="btn btn-success">+</button>
+                    </form>
+                @endif
             </div>
         </div>
     </div>
