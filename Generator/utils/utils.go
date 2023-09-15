@@ -69,9 +69,9 @@ func GenerateRandWord(param string) string {
 		indexToRemove := rand.Intn(len(WordsList) - 1)
 		param = WordsList[indexToRemove]
 		WordsList = append(WordsList[:indexToRemove], WordsList[indexToRemove+1:]...)
-
-		Passwords.PassList = append(Passwords.PassList, param)
 	}
+
+	Passwords.PassList = append(Passwords.PassList, param)
 
 	return param
 }

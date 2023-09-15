@@ -12,6 +12,7 @@ import (
 	"path/filepath"
 	"regexp"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/otiai10/copy"
@@ -20,6 +21,8 @@ import (
 const templateDir string = "../Templates/Havenbrook"
 const tempExportDir string = "./export/"
 const finalExportDir string = "../Backend/storage/app/public/export"
+
+var wg sync.WaitGroup
 
 func main() {
 	rand.NewSource(time.Now().UnixNano())
@@ -98,6 +101,8 @@ func generateNew(uuid string) ([]string, int, string) {
 
 	traverseDirectory(newPath)
 
+	wg.Wait()
+
 	err = utils.CompressFiles(newPath, finalExportDir, newName)
 	if err != nil {
 		fmt.Println("Erreur lors de la compression des fichiers :", err)
@@ -126,15 +131,27 @@ func traverseDirectory(path string) {
 		}
 
 		for _, file := range files {
-			traverseDirectory(filepath.Join(path, file.Name()))
+			wg.Add(1)
+			go func(filePath string) {
+				defer wg.Done()
+				traverseDirectory(filePath)
+			}(filepath.Join(path, file.Name()))
 		}
 	} else if fileInfo.Mode().IsRegular() {
 		ext := strings.ToLower(filepath.Ext(fileInfo.Name()))
 
 		if ext == ".txt" {
-			readTextFileContent(path)
+			wg.Add(1)
+			go func(filePath string) {
+				defer wg.Done()
+				readTextFileContent(filePath)
+			}(path)
 		} else if ext == ".jpg" || ext == ".png" {
-			readImageContent(path)
+			wg.Add(1)
+			go func(filePath string) {
+				defer wg.Done()
+				readImageContent(filePath)
+			}(path)
 		}
 	}
 }
